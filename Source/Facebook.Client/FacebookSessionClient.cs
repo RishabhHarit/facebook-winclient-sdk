@@ -100,6 +100,17 @@ namespace Facebook.Client
             return await LoginAsync(null, false);
         }
 
+        bool systemTrayIsVisible = false;
+        public bool SystemTrayIsVisible 
+        {
+            get { return systemTrayIsVisible; }
+            set 
+            {
+                systemTrayIsVisible = value;
+                WebAuthenticationBroker.SystemTrayIsVisible = value;
+            }
+        }
+
         public async Task<FacebookSession> LoginAsync(string permissions)
         {
             return await LoginAsync(permissions, false);
