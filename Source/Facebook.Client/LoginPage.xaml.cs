@@ -21,6 +21,8 @@ namespace Facebook.Client
         private bool authenticationStarted = false;
         private bool authenticationFinished = false;
 
+        string systemtray = "";
+
         /// <summary>
         /// Initiatlizes the page by hooking up some event handlers.
         /// </summary>
@@ -42,6 +44,10 @@ namespace Facebook.Client
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            if (NavigationContext.QueryString.TryGetValue("systemtray", out systemtray))
+            {
+                //do something with the parameter
+            }
 
             // Make sure that there is an authentication operation in progress.
             // If not, we'll navigate back to the previous page.
@@ -140,6 +146,14 @@ namespace Facebook.Client
             // Navigate back now.
             browserControl.Source = new Uri("about:blank");
             NavigationService.GoBack();
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (systemtray == "False" || systemtray == "false")
+            {
+                SystemTray.IsVisible = false;
+            }
         }
     }
 }

@@ -74,7 +74,8 @@ namespace Facebook.Client
         static public bool AuthenticationInProgress { get; private set; }
         static public Uri StartUri { get; private set; }
         static public Uri EndUri { get; private set; }
-
+        static public bool SystemTrayIsVisible { get; set; }
+        
         /// <summary>
         /// Mimics the WebAuthenticationBroker's AuthenticateAsync method.
         /// </summary>
@@ -110,7 +111,8 @@ namespace Facebook.Client
             // Navigate to the login page.
             if (!delegateToUI)
             {
-                rootFrame.Navigate(new Uri("/Facebook.Client;component/loginpage.xaml", UriKind.Relative));
+
+                rootFrame.Navigate(new Uri("/Facebook.Client;component/loginpage.xaml?systemtray=" + SystemTrayIsVisible.ToString(), UriKind.Relative));
             }
             else
             {
@@ -123,7 +125,7 @@ namespace Facebook.Client
                         return;
                     }
 
-                    rootFrame.Navigate(new Uri("/Facebook.Client;component/loginpage.xaml", UriKind.Relative));
+                    rootFrame.Navigate(new Uri("/Facebook.Client;component/loginpage.xaml?systemtray=" + SystemTrayIsVisible.ToString(), UriKind.Relative));
                 });
             }
 
